@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import { Button, Form, Grid, Segment } from "semantic-ui-react";
+import { selectUser, loginAction } from "./ducks/login";
 
 class LoginForm extends Component {
   state = {
@@ -16,9 +18,23 @@ class LoginForm extends Component {
     });
   };
 
+  handleSubmit = () => {
+    const { login, password } = this.state;
+    const userObject = {
+      login,
+      password
+    };
+    console.warn(userObject);
+    this.props.onLogin(userObject);
+  };
+
+  handleUserFromStoreRequest = () => {
+    console.warn(this.props.user);
+  };
+
   render() {
     const { login, password } = this.state;
-    const { handleKeyPress } = this;
+    const { handleKeyPress, handleSubmit, handleUserFromStoreRequest } = this;
     return (
       <Grid
         textAlign="center"
@@ -42,8 +58,16 @@ class LoginForm extends Component {
                 onChange={handleKeyPress}
                 style={{ margin: 10 }}
               />
-              <Button color="teal" fluid size="large">
+              <Button color="teal" fluid size="large" onClick={handleSubmit}>
                 Login
+              </Button>
+              <Button
+                color="red"
+                fluid
+                size="large"
+                onClick={handleUserFromStoreRequest}
+              >
+                Console.warn user value in store
               </Button>
             </Segment>
           </Form>
@@ -53,4 +77,15 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+const mapStateToProps = store => ({
+  user: selectUser(store)
+});
+
+const mapDispatchToProps = dispatch => ({
+  onLogin: userObject => dispatch(loginAction(userObject))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm);
