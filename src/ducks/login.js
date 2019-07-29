@@ -1,5 +1,3 @@
-import { createStore } from "redux";
-
 // action types:
 const LOGIN = "LOGIN";
 
@@ -15,8 +13,8 @@ const initialValue = {
 };
 
 // reducer:
-function loginReducer(store = initialValue, action) {
-  console.warn(action, store);
+export default function loginReducer(store = initialValue, action) {
+  // console.warn(action, store);
   switch (action.type) {
     case LOGIN:
       return {
@@ -27,9 +25,3 @@ function loginReducer(store = initialValue, action) {
       return store;
   }
 }
-
-// creating Store
-export const store = createStore(loginReducer);
-
-// selectors:
-export const selectUser = store => store.user;

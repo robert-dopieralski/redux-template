@@ -1,0 +1,52 @@
+{
+  "pads": [
+    {
+      "id": 1,
+      "status": "new",
+      "building": "Olivia Gate A",
+      "info": "Lenovo P10"
+    },
+    {
+      "id": 2,
+      "status": "new",
+      "building": "Olivia Gate B",
+      "info": "ASUS MB168B"
+    },
+    {
+      "id": 3,
+      "status": "new",
+      "building": "Olivia Point",
+      "info": "Huawei MediaPad T3"
+    },
+    {
+      "id": 4,
+      "status": "new",
+      "building": "Olivia Tower",
+      "info": "Lenovo P10"
+    },
+    {
+      "id": 5,
+      "status": "new",
+      "building": "Olivia Star",
+      "info": "ASUS MB168B"
+    },
+    {
+      "id": 6,
+      "status": "new",
+      "building": "Olivia Six",
+      "info": "Huawei MediaPad T3"
+    },
+    {
+      "id": 7,
+      "status": "new",
+      "building": "Olivia Prime A",
+      "info": "Lenovo P10"
+    },
+    {
+      "id": 8,
+      "status": "new",
+      "building": "Olivia Prime B",
+      "info": "ASUS MB168B"
+    }
+  ]
+}

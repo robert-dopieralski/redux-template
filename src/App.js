@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Button, Form, Grid, Segment } from "semantic-ui-react";
-import { selectUser, loginAction } from "./ducks/login";
+import { Button, Form, Grid, Segment, Message } from "semantic-ui-react";
+import { loginAction } from "./ducks/login";
+import {
+  selectUser,
+  selectArePadsLoading,
+  selectPadsLoadingError,
+  selectPads
+} from "./store";
+import { fetchPads } from "./ducks/pads";
 
 class LoginForm extends Component {
   state = {
@@ -32,9 +39,19 @@ class LoginForm extends Component {
     console.warn(this.props.user);
   };
 
+  handleAsyncRequest = () => {
+    this.props.fetchPads();
+  };
+
   render() {
     const { login, password } = this.state;
-    const { handleKeyPress, handleSubmit, handleUserFromStoreRequest } = this;
+    const { pads } = this.props;
+    const {
+      handleKeyPress,
+      handleSubmit,
+      handleUserFromStoreRequest,
+      handleAsyncRequest
+    } = this;
     return (
       <Grid
         textAlign="center"
@@ -58,6 +75,7 @@ class LoginForm extends Component {
                 onChange={handleKeyPress}
                 style={{ margin: 10 }}
               />
+              <Message>{`Pads Length is: ${pads.length}`}</Message>
               <Button color="teal" fluid size="large" onClick={handleSubmit}>
                 Login
               </Button>
@@ -69,6 +87,19 @@ class LoginForm extends Component {
               >
                 Console.warn user value in store
               </Button>
+              <Button
+                fluid
+                onClick={handleAsyncRequest}
+                color={
+                  this.props.isFetchingPads
+                    ? "yellow"
+                    : this.props.padsError
+                    ? "red"
+                    : "green"
+                }
+              >
+                dispatch async action with redux-thunk middleware
+              </Button>
             </Segment>
           </Form>
         </Grid.Column>
@@ -78,11 +109,15 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = store => ({
-  user: selectUser(store)
+  user: selectUser(store),
+  pads: selectPads(store),
+  isFetchingPads: selectArePadsLoading(store),
+  padsError: selectPadsLoadingError(store)
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLogin: userObject => dispatch(loginAction(userObject))
+  onLogin: userObject => dispatch(loginAction(userObject)),
+  fetchPads: () => dispatch(fetchPads())
 });
 
 export default connect(
