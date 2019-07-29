@@ -30,7 +30,7 @@ const initialStateValue = {
 };
 
 export default function padsReducer(state = initialStateValue, action) {
-  // console.warn(state, action);
+  console.warn(state, action);
   switch (action.type) {
     case FETCH_PADS_REQUEST:
       return {

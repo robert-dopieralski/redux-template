@@ -14,7 +14,7 @@ const initialValue = {
 
 // reducer:
 export default function loginReducer(store = initialValue, action) {
-  // console.warn(action, store);
+  console.warn(action, store);
   switch (action.type) {
     case LOGIN:
       return {
